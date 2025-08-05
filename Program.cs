@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(
+        "server=127.0.0.1;database=presentation-site;user=root;password=admin;",
+        ServerVersion.AutoDetect("server=127.0.0.1;database=presentation-site;user=root;password=admin;")
+    )
+);
 
 
 var app = builder.Build();
@@ -38,9 +46,23 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
+app.MapPost("/users", async (User user, AppDbContext db) =>
+{
+    db.Users.Add(user);
+    await db.SaveChangesAsync();
+    return Results.Created($"/users/{user.Id}", user);
+}).WithName("CreateUser");
+
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+}
+
+public class User
+{
+    public int Id { get; set; } // Chave primária
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 }
