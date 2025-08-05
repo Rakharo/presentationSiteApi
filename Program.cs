@@ -46,23 +46,9 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
-app.MapPost("/users", async (User user, AppDbContext db) =>
-{
-    db.Users.Add(user);
-    await db.SaveChangesAsync();
-    return Results.Created($"/users/{user.Id}", user);
-}).WithName("CreateUser");
-
 app.Run();
 
 public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
-
-public class User
-{
-    public int Id { get; set; } // Chave primária
-    public string Name { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
 }
