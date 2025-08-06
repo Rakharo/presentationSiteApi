@@ -14,6 +14,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     )
 );
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy
+            .AllowAnyOrigin() // ou .WithOrigins("http://localhost:3000") se quiser mais seguro
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 
 var app = builder.Build();
 
@@ -46,6 +57,7 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
+app.UseCors();
 app.Run();
 
 public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
