@@ -7,7 +7,11 @@
       "launchBrowser": false,
       "applicationUrl": "http://localhost:5086",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SPOTIFY_BASE_URL": "https://api.spotify.com/v1",
+        "SPOTIFY_CLIENT_ID": "62ae7498031543019d9bf1743b009257",
+        "SPOTIFY_CLIENT_SECRET": "ced9c1f33df54f08a66711356c74d759",
+        "SPOTIFY_REDIRECT_URI": "http://127.0.0.1:5086"
       }
     },
     "https": {
@@ -16,7 +20,11 @@
       "launchBrowser": false,
       "applicationUrl": "https://localhost:7090;http://localhost:5086",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SPOTIFY_BASE_URL": "https://api.spotify.com/v1",
+        "SPOTIFY_CLIENT_ID": "62ae7498031543019d9bf1743b009257",
+        "SPOTIFY_CLIENT_SECRET": "ced9c1f33df54f08a66711356c74d759",
+        "SPOTIFY_REDIRECT_URI": "http://127.0.0.1:5086"
       }
     }
   }
